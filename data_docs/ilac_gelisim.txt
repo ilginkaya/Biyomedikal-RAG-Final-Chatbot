@@ -1,0 +1,1 @@
+Yeni bir ilacın geliştirilmesi fazlara ayrılır: Keşif, Ön-klinik testler (hayvanlar üzerinde), Faz I (güvenlik), Faz II (dozaj ve etkinlik), Faz III (geniş etkinlik) ve FDA onayı. Faz I testleri genellikle sağlıklı gönüllüler üzerinde yapılır ve ilacın güvenliğini değerlendirmeye odaklanır.

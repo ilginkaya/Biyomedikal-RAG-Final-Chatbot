@@ -1,0 +1,1 @@
+Genetik mühendisliğinde en devrimci araçlardan biri CRISPR/Cas9 sistemidir. Bu sistem, DNA'yı hassas bir şekilde kesmek ve genetik materyali değiştirmek için kullanılır. Bu, gen tedavisi ve hastalık modellemesi için kritik öneme sahiptir. PCR (Polimeraz Zincir Reaksiyonu), DNA'nın laboratuvar ortamında hızla çoğaltılması için kullanılan bir tekniktir.

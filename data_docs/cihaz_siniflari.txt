@@ -1,0 +1,7 @@
+Tıbbi cihazlar, risk seviyelerine göre sınıflandırılır (Sınıf I, IIa, IIb, III). Sınıf I cihazlar en düşük riske sahiptir (örneğin yara bantları veya stetoskoplar). Sınıf III cihazlar ise en yüksek riske sahiptir ve genellikle yaşam desteği için kullanılır (örneğin kalp pilleri veya yapay kalp kapakçıkları). Bu sınıflandırma, cihazın güvenliğini ve performansını sağlamak için kritik öneme sahiptir.
+
+
+Sınıf I cihazlar genellikle CE işareti almak için basit bir uygunluk beyanına ihtiyaç duyarken, Sınıf III cihazlar için tam bir kalite yönetim sistemi denetimi (ISO 13485) ve onaylanmış kuruluş (Notified Body) onayı gerekir. Vücuda cerrahi olarak yerleştirilen cihazların çoğu Sınıf III kategorisindedir (örneğin stentler veya beyin stimülatörleri).
+
+
+Sınıflandırma Detayı: Tıbbi cihazlar, hastaya ve cihaza bağlı risk seviyesine göre (Sınıf I, IIa, IIb, III) sınıflandırılır. Sınıf I (düşük risk): Basit araçlar (steteskop, yara bandı). Sınıf IIa/IIb (orta risk): İnfüzyon pompası, cerrahi eldiven. Sınıf III (yüksek risk): Kalp pilleri, yapay kalp kapakçıkları gibi yaşamı destekleyen veya sürdüren implantlardır. En katı regülasyonlar Sınıf III için geçerlidir.

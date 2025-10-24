@@ -1,0 +1,1 @@
+Biyoinformatik, biyolojik verilerin (genom dizileri, protein yapıları) toplanması, depolanması ve analiz edilmesi için hesaplama araçları kullanır. DNA dizi analizinde, dizilim hizalama algoritmaları (Alignment Algorithms) sıklıkla kullanılır. Makine öğrenimi algoritmaları, büyük biyolojik veri kümelerinden hastalık risklerini tahmin etmek için yaygın olarak uygulanır.

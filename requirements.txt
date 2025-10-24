@@ -1,0 +1,11 @@
+streamlit
+langchain
+langchain-google-genai
+langchain-community
+langchain-core
+chromadb
+pypdf
+unstructured
+google-genai
+pandas
+protobuf<4.26
