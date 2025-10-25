@@ -49,8 +49,7 @@ Kullanıcı bir soru yazar → ChromaDB’den en alakalı metin parçaları çek
 1.  **Reposu Klonlama:**
     ```bash
     git clone https://github.com/ilginkaya/Biyomedikal-RAG-Final-Chatbot.git
-   cd Biyomedikal-RAG-Final-Chatbot
-   
+    cd Biyomedikal-RAG-Final-Chatbot
     ```
 2.  **Sanal Ortam Kurulumu:**
     ```bash
@@ -97,4 +96,5 @@ Kullanıcı, arayüzde sorusunu sorar. Chatbot, otomatik olarak oluşturulan ver
 
 ### 🔗 Deploy Linki
 [Canlı Uygulama Linki](https://biyomedikal-rag-final-chatbot-gckekrqhzbdrsug3ri8pxj.streamlit.app/)
+
 
