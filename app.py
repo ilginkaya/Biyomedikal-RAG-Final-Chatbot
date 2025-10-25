@@ -19,7 +19,11 @@ LLM_MODEL = "gemini-2.5-flash"
 EMBEDDING_MODEL = "models/text-embedding-004"
 DB_PATH = "rag_store"
 DOCS_PATH = "data_docs"
-API_KEY = os.getenv("AIzaSyBCfEQDr7V9jdDtJlFMIzanlHleejSe1WY")
+
+
+def get_api_key():
+    """API anahtarını ENV > Secrets sırasıyla al."""
+    return os.getenv("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
 
 
 def _join_docs(docs):
@@ -29,25 +33,33 @@ def _join_docs(docs):
 
 @st.cache_resource
 def load_rag_chain():
-    if not API_KEY:
-        st.error("❌ HATA: GEMINI_API_KEY bulunamadı. Lütfen ortam değişkeni olarak ayarlayın.")
+    api_key = get_api_key()
+    if not api_key:
+        st.error("❌ HATA: GEMINI_API_KEY bulunamadı. Lütfen Secrets veya ortam değişkeni olarak ekleyin.")
         return None, None
 
     # 1) Embedding
-    embeddings = GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL, google_api_key=API_KEY)
+    embeddings = GoogleGenerativeAIEmbeddings(model=EMBEDDING_MODEL, google_api_key=api_key)
 
-    # 2) Chroma DB
+    # 2) Chroma DB (oluştur/yükle)
     if not Path(DB_PATH).exists():
         try:
+            if not Path(DOCS_PATH).exists():
+                st.error(f"HATA: '{DOCS_PATH}' klasörü yok. Metin dosyalarını buraya koymalısın.")
+                return None, None
+
             loader = DirectoryLoader(
                 DOCS_PATH, glob="**/*.txt", loader_kwargs={"encoding": "utf-8", "errors": "ignore"}
             )
             docs = loader.load()
+
             splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
             chunks = splitter.split_documents(docs)
+
             if not chunks:
                 st.error("HATA: İndeksleme başarısız. Dokümanlar boş veya okunamıyor.")
                 return None, None
+
             vector_store = Chroma.from_documents(chunks, embeddings, persist_directory=DB_PATH)
         except Exception as e:
             st.error(f"FATAL HATA: Otomatik indeksleme sırasında hata: {e}")
@@ -56,7 +68,7 @@ def load_rag_chain():
         vector_store = Chroma(persist_directory=DB_PATH, embedding_function=embeddings)
 
     # 3) LLM ve Retriever
-    llm = ChatGoogleGenerativeAI(model=LLM_MODEL, temperature=0.2, google_api_key=API_KEY)
+    llm = ChatGoogleGenerativeAI(model=LLM_MODEL, temperature=0.2, google_api_key=api_key)
     retriever = vector_store.as_retriever(search_kwargs={"k": 5})
 
     # 4) Prompt (context + input)
@@ -89,6 +101,7 @@ Yanıt:
     return qa_chain, retriever
 
 
+# Zinciri başlat
 QA_CHAIN, RETRIEVER = load_rag_chain()
 
 
@@ -107,9 +120,14 @@ def main():
     st.markdown("---")
     st.warning("🚨 ETİK UYARI: Bu sistem tıbbi tanı, tedavi veya kişisel sağlık tavsiyesi VERMEZ. Sadece bilgi asistanıdır.")
 
+    # Bilgilendirici küçük etiket (anahtar nereden geliyor)
+    src = "ENV" if os.getenv("GEMINI_API_KEY") else ("SECRETS" if "GEMINI_API_KEY" in st.secrets else "YOK")
+    st.caption(f"API anahtarı kaynağı: {src}")
+
     if not QA_CHAIN:
         st.stop()
 
+    # Sohbet durumu
     if "messages" not in st.session_state:
         st.session_state.messages = [{
             "role": "assistant",
@@ -123,7 +141,8 @@ def main():
             with st.chat_message(m["role"]):
                 st.markdown(m["content"])
 
-        if prompt := st.chat_input("Biyomedikal sorunuzu buraya yazın..."):
+        prompt = st.chat_input("Biyomedikal sorunuzu buraya yazın...")
+        if prompt:
             st.session_state.messages.append({"role": "user", "content": prompt})
             with st.chat_message("user"):
                 st.markdown(prompt)
@@ -131,6 +150,7 @@ def main():
             with st.spinner("🧠 Gemini yanıt oluşturuyor..."):
                 try:
                     answer_text = QA_CHAIN.invoke(prompt)
+
                     # Kaynak listesi (pipeline çıktısında yok; retriever'dan ayrıca çekiyoruz)
                     docs = RETRIEVER.get_relevant_documents(prompt)
                     sources_list = "\n".join([f"- **{d.metadata.get('source', 'Bilinmeyen')}**" for d in docs])
@@ -147,10 +167,11 @@ def main():
         st.subheader("İpuçları ve Kaynaklar")
         st.info("Bu model, sadece sizin yüklediğiniz biyomedikal dokümanlardan bilgi çeker.")
         st.markdown("**Örnek Sorular:**")
-        st.markdown("- Kalbin en güçlü odacığı nedir?")
+        st.markdown("- Kalbin en güçlü odacığı nedir? Sebebini kısa açıklar mısın?")
         st.markdown("- Tıbbi cihazların sınıflandırılması nasıl yapılır?")
         st.markdown("- Genetik mühendisliğinde CRISPR nedir?")
-
+        st.markdown("- MRG'nin çalışma prensibini teknik ve kısa açıklar mısın?")
+        st.markdown("- Biyomalzemelerin vücutta gösterdiği üç farklı biyo-davranış şekli nedir?")
 
 if __name__ == "__main__":
     main()
