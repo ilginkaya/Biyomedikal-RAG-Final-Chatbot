@@ -66,7 +66,7 @@ Kullanıcı bir soru yazar → ChromaDB’den en alakalı metin parçaları çek
     ```
 5.  **Uygulamayı Çalıştırma:**
     ```bash
-    python3 app.py
+    streamlit run app.py
     ```
 Local URL'niz ile sayfaya ulaşabilrsiniz.
 
@@ -96,5 +96,6 @@ Kullanıcı, arayüzde sorusunu sorar. Chatbot, otomatik olarak oluşturulan ver
 
 ### 🔗 Deploy Linki
 [Canlı Uygulama Linki](https://biyomedikal-rag-final-chatbot-gckekrqhzbdrsug3ri8pxj.streamlit.app/)
+
 
 
