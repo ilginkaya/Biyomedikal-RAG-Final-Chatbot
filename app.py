@@ -19,7 +19,7 @@ LLM_MODEL = "gemini-2.5-flash"
 EMBEDDING_MODEL = "models/text-embedding-004"
 DB_PATH = "rag_store"
 DOCS_PATH = "data_docs"
-API_KEY = os.getenv("GEMINI_API_KEY")
+API_KEY = os.getenv("AIzaSyBCfEQDr7V9jdDtJlFMIzanlHleejSe1WY")
 
 
 def _join_docs(docs):
