@@ -84,7 +84,7 @@ def main():
             <h1>🔬 Biyomedikal RAG Bilgi Asistanı</h1><p>Gemini AI, LangChain ve ChromaDB ile güçlendirilmiştir.</p></div>""",
         unsafe_allow_html=True)
     st.markdown("---")
-    st.warning("🚨 ETİK UYARI: Bu sistem tıbbi tanı, tedavi veya kişisel sağlık tavsiyesi VERMEZ. Sadece bilgi asistanıdır.")
+    st.warning("🚨 ETİK UYARI: Bu sistem tıbbi tanı, tedavi veya kişisel sağlık tavsiyesi vermez. Sadece bilgi asistanıdır.")
     src = "ENV" if os.getenv("GEMINI_API_KEY") else ("SECRETS" if "GEMINI_API_KEY" in st.secrets else "YOK")
     st.caption(f"API anahtarı kaynağı: {src}")
 
